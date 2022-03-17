@@ -18,6 +18,9 @@ export default function Home() {
 
       <main className={styles.main}>
         <Banner buttonText="Show me" handleOnClick={handleOnBannerBtnClick} />
+        <div className={styles.heroImage}>
+          <Image src="/static/hero-image.png" width={700} height={400}></Image>
+        </div>
       </main>
     </div>
   );
