@@ -1,6 +1,7 @@
 import Head from "next/head";
 import Image from "next/image";
 import Banner from "../components/banner";
+import Card from "../components/card";
 import styles from "../styles/Home.module.css";
 
 export default function Home() {
@@ -20,6 +21,44 @@ export default function Home() {
         <Banner buttonText="Show me" handleOnClick={handleOnBannerBtnClick} />
         <div className={styles.heroImage}>
           <Image src="/static/hero-image.png" width={700} height={400}></Image>
+          <div className={styles.cardLayout}>
+            <Card
+              name="Some Coffee"
+              imgUrl="/static/hero-image.png"
+              href="/coffee-store/some-coffee"
+              className={styles.card}
+            />
+            <Card
+              name="Some Coffee"
+              imgUrl="/static/hero-image.png"
+              href="/coffee-store/some-coffee"
+              className={styles.card}
+            />
+            <Card
+              name="Some Coffee"
+              imgUrl="/static/hero-image.png"
+              href="/coffee-store/some-coffee"
+              className={styles.card}
+            />
+            <Card
+              name="Some Coffee"
+              imgUrl="/static/hero-image.png"
+              href="/coffee-store/some-coffee"
+              className={styles.card}
+            />
+            <Card
+              name="Some Coffee"
+              imgUrl="/static/hero-image.png"
+              href="/coffee-store/some-coffee"
+              className={styles.card}
+            />
+            <Card
+              name="Some Coffee"
+              imgUrl="/static/hero-image.png"
+              href="/coffee-store/some-coffee"
+              className={styles.card}
+            />
+          </div>
         </div>
       </main>
     </div>
