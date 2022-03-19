@@ -26,8 +26,8 @@ export default function Home() {
             {coffeeStores.map((coffeeStore) => (
               <Card
                 name={coffeeStore.name}
-                imgUrl="/static/hero-image.png"
-                href="/coffee-store/some-coffee"
+                imgUrl={coffeeStore.imgUrl}
+                href={`/coffee-store/${coffeeStore.id}`}
                 className={styles.card}
               />
             ))}
