@@ -11,12 +11,12 @@ export async function getStaticProps(context) {
     method: "GET",
     headers: {
       Accept: "application/json",
-      Authorization: "fsq31U8dW5aJ1LnbxCU411jf5D/IHXInpdLefCdJTqVn3Ss=",
+      Authorization: process.env.FOURSQUARE_AUTHORIZATION_HEADER,
     },
   };
 
   try {
-    const response = await await fetch(
+    const response = await fetch(
       "https://api.foursquare.com/v3/places/search?query=coffee&near=sydney&limit=6",
       options
     );
@@ -65,8 +65,11 @@ export default function Home(props) {
                 <Card
                   key={coffeeStore.fsq_id}
                   name={coffeeStore.name}
-                  imgUrl={coffeeStore.imgUrl || "/static/hero-image.png"}
-                  href={`/coffee-store/${coffeeStore.id}`}
+                  imgUrl={
+                    coffeeStore.imgUrl ||
+                    "https://images.unsplash.com/photo-1504753793650-d4a2b783c15e?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=2000&q=80"
+                  }
+                  href={`/coffee-store/${coffeeStore.fsq_id}`}
                   className={styles.card}
                 />
               ))}
