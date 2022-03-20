@@ -12,24 +12,24 @@ body {
 }
 
 @font-face {
-  font-family: 'IBMPlexSans';
+  font-family: "IBMPlexSans";
   font-style: normal;
   font-weight: 500;
-  src: url(/fonts/IBMPlexSans-Regular.ttf) format('truetype');
+  src: url(/fonts/IBMPlexSans-Regular.ttf) format("truetype");
 }
 
 @font-face {
-  font-family: 'IBMPlexSans';
+  font-family: "IBMPlexSans";
   font-style: normal;
   font-weight: 600;
-  src: url(/fonts/IBMPlexSans-SemiBold.ttf) format('truetype');
+  src: url(/fonts/IBMPlexSans-SemiBold.ttf) format("truetype");
 }
 
 @font-face {
-  font-family: 'IBMPlexSans';
+  font-family: "IBMPlexSans";
   font-style: normal;
   font-weight: 700;
-  src: url(/fonts/IBMPlexSans-Bold.ttf) format('truetype');
+  src: url(/fonts/IBMPlexSans-Bold.ttf) format("truetype");
 }
 
 a {
