@@ -1,0 +1,4 @@
+# Get 6 of coffee store in Sydney
+GET https://api.foursquare.com/v3/places/nearby?ll=33.8688%2C151.2093&query=coffee&limit=6 HTTP/1.1
+Accept: application/json
+Authorization: fsq31U8dW5aJ1LnbxCU411jf5D/IHXInpdLefCdJTqVn3Ss=

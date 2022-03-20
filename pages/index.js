@@ -3,14 +3,34 @@ import Image from "next/image";
 import Banner from "../components/banner";
 import Card from "../components/card";
 import styles from "../styles/Home.module.css";
-import coffeeStoresData from "../data/coffee-stores.json";
+// import coffeeStoresData from "../data/coffee-stores.json";
 
 export async function getStaticProps(context) {
-  //fetch data here
+  let coffeeStoresData;
+  const options = {
+    method: "GET",
+    headers: {
+      Accept: "application/json",
+      Authorization: "fsq31U8dW5aJ1LnbxCU411jf5D/IHXInpdLefCdJTqVn3Ss=",
+    },
+  };
+
+  try {
+    const response = await await fetch(
+      "https://api.foursquare.com/v3/places/search?query=coffee&near=sydney&limit=6",
+      options
+    );
+
+    const data = await response.json();
+    coffeeStoresData = data.results;
+  } catch (error) {
+    console.log(error);
+  }
+
   return {
     props: {
       coffeeStores: coffeeStoresData,
-    }, // will be passed to the page component as props
+    },
   };
 }
 
@@ -30,17 +50,22 @@ export default function Home(props) {
       <main className={styles.main}>
         <Banner buttonText="Show me" handleOnClick={handleOnBannerBtnClick} />
         <div className={styles.heroImage}>
-          <Image src="/static/hero-image.png" width={700} height={400} alt="hero-image"/>
+          <Image
+            src="/static/hero-image.png"
+            width={700}
+            height={400}
+            alt="hero-image"
+          />
         </div>
         {props.coffeeStores.length > 0 && (
           <>
-            <h2 className={styles.heading2}>Local stores</h2>
+            <h2 className={styles.heading2}>Sydney Stores</h2>
             <div className={styles.cardLayout}>
               {props.coffeeStores.map((coffeeStore) => (
                 <Card
-                  key={coffeeStore.id}
+                  key={coffeeStore.fsq_id}
                   name={coffeeStore.name}
-                  imgUrl={coffeeStore.imgUrl}
+                  imgUrl={coffeeStore.imgUrl || "/static/hero-image.png"}
                   href={`/coffee-store/${coffeeStore.id}`}
                   className={styles.card}
                 />
