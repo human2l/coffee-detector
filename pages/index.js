@@ -5,6 +5,7 @@ import Card from "../components/card";
 import fetchCoffeeStores from "../lib/coffee-store";
 import styles from "../styles/Home.module.css";
 import useTrackLocation from "../hooks/use-track-location";
+import { useEffect } from "react";
 
 export async function getStaticProps(context) {
   try {
@@ -23,9 +24,21 @@ export default function Home(props) {
   const { handleTrackLocation, latLong, locationErrorMsg, isFindingLocation } =
     useTrackLocation();
   const handleOnBannerBtnClick = () => {
-    console.log("banner button clicked");
     handleTrackLocation();
   };
+
+  useEffect(() => {
+    const effectFn = async () => {
+      if (latLong) {
+        try {
+          const fetchedCoffeeStores = await fetchCoffeeStores(latLong);
+        } catch (error) {
+          console.log(error);
+        }
+      }
+    };
+    effectFn();
+  }, [latLong]);
 
   return (
     <div className={styles.container}>
@@ -40,6 +53,7 @@ export default function Home(props) {
           buttonText={isFindingLocation ? "Locating..." : "Show me"}
           handleOnClick={handleOnBannerBtnClick}
         />
+        {console.log({ latLong })}
         {locationErrorMsg && <p>Something went wrong: ${locationErrorMsg}</p>}
         <div className={styles.heroImage}>
           <Image
