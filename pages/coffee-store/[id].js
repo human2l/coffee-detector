@@ -11,7 +11,7 @@ import { isEmpty } from "../../utils";
 
 export const getStaticProps = async (staticProps) => {
   const params = staticProps.params;
-  const coffeeStores = await fetchCoffeeStores();
+  const coffeeStores = await fetchCoffeeStores(null, 6);
   const findCoffeeStoreById = coffeeStores.find((coffeeStore) => {
     return coffeeStore.id.toString() === params.id;
   });
@@ -23,7 +23,7 @@ export const getStaticProps = async (staticProps) => {
 };
 
 export const getStaticPaths = async () => {
-  const coffeeStores = await fetchCoffeeStores();
+  const coffeeStores = await fetchCoffeeStores(null, 6);
   const paths = coffeeStores.map((coffeeStore) => {
     return {
       params: { id: coffeeStore.id.toString() },

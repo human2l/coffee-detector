@@ -10,7 +10,7 @@ import { ACTION_TYPES, StoreContext } from "../store/store-context";
 
 export async function getStaticProps(context) {
   try {
-    const coffeeStores = await fetchCoffeeStores();
+    const coffeeStores = await fetchCoffeeStores(null, 6);
     return {
       props: {
         coffeeStores,
@@ -34,7 +34,7 @@ export default function Home(props) {
     const effectFn = async () => {
       if (latLong) {
         try {
-          const fetchedCoffeeStores = await fetchCoffeeStores(latLong);
+          const fetchedCoffeeStores = await fetchCoffeeStores(latLong, 30);
           dispatch({
             type: ACTION_TYPES.SET_COFFEE_STORES,
             payload: {
