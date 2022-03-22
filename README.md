@@ -1,6 +1,24 @@
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
-## Getting Started
+# Project Structure
+
+## Home page
+
+<img src="README.assets/Screen Shot 2022-03-22 at 11.44.44 AM.png" alt="Screen Shot 2022-03-22 at 11.44.44 AM" style="zoom:50%;" />
+
+## Coffee store page
+
+<img src="README.assets/Screen Shot 2022-03-22 at 11.45.35 AM.png" alt="Screen Shot 2022-03-22 at 11.45.35 AM" style="zoom:50%;" />
+
+<img src="README.assets/Screen Shot 2022-03-22 at 11.46.54 AM.png" alt="Screen Shot 2022-03-22 at 11.46.54 AM" style="zoom:50%;" />
+
+## Database
+
+<img src="README.assets/Screen Shot 2022-03-22 at 11.47.50 AM.png" alt="Screen Shot 2022-03-22 at 11.47.50 AM" style="zoom:50%;" />
+
+<img src="README.assets/Screen Shot 2022-03-22 at 11.48.00 AM.png" alt="Screen Shot 2022-03-22 at 11.48.00 AM" style="zoom:50%;" />
+
+# Getting Started
 
 First, run the development server:
 
