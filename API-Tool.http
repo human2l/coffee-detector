@@ -1,4 +1,19 @@
 # Get 6 of coffee store in Sydney
+###
 GET https://api.foursquare.com/v3/places/nearby?query=coffee&limit=6 HTTP/1.1
 Accept: application/json
-Authorization: fsq31U8dW5aJ1LnbxCU411jf5D/IHXInpdLefCdJTqVn3Ss=
+Authorization: {{foursquareAuthorizationHeader}}
+###
+
+POST http://localhost:3000/api/createCoffeeStore HTTP/1.1
+content-type: application/json
+
+{
+    "id": "5",
+    "name": "aaa",
+    "address": "address 1",
+    "voting": 1,
+    "neighbourhood": "neighbour 1",
+    "imgUrl": "imgUrl 1"
+}
+
