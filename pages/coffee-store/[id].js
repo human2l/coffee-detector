@@ -1,3 +1,4 @@
+import axios from "axios";
 import { useState, useContext, useEffect } from "react";
 import { useRouter } from "next/router";
 import Link from "next/link";
@@ -43,13 +44,39 @@ const CoffeeStore = (initialProps) => {
     state: { coffeeStores },
   } = useContext(StoreContext);
 
+  const handleCreateCoffeeStore = async (coffeeStore) => {
+    try {
+      const data = {
+        ...coffeeStore,
+        neighbourhood: coffeeStore.neighbourhood || "",
+        address: coffeeStore.address || "",
+        voting: 0,
+      };
+      const response = await axios.post("/api/createCoffeeStore", data);
+      console.log(response);
+      // const response = await fetch("/api/createCoffeeStore", {
+      //   method: "POST",
+      //   headers: {
+      //     "Content-Type": "application/json",
+      //   },
+      //   body: JSON.stringify(data),
+      // });
+      // console.log(response);
+    } catch (error) {
+      console.error("Error creating coffee store", error);
+    }
+  };
+
   useEffect(() => {
     if (isEmpty(initialProps.coffeeStore)) {
       if (coffeeStores.length > 0) {
-        const findCoffeeStoreById = coffeeStores.find(
+        const coffeeStoreFromContext = coffeeStores.find(
           (coffeeStore) => coffeeStore.id.toString() === id
         );
-        setCoffeeStore(findCoffeeStoreById);
+        if (coffeeStoreFromContext) {
+          setCoffeeStore(coffeeStoreFromContext);
+          handleCreateCoffeeStore(coffeeStoreFromContext);
+        }
       }
     }
   }, [coffeeStores, id, initialProps.coffeeStore]);
