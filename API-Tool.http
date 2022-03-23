@@ -5,6 +5,7 @@ Accept: application/json
 Authorization: {{foursquareAuthorizationHeader}}
 ###
 
+#POST createCoffeeStore
 POST http://localhost:3000/api/createCoffeeStore HTTP/1.1
 content-type: application/json
 
@@ -16,4 +17,6 @@ content-type: application/json
     "neighbourhood": "neighbour 1",
     "imgUrl": "imgUrl 1"
 }
-
+###
+# GET getCoffeeStoreById
+GET http://localhost:3000/api/getCoffeeStoreById?id= HTTP/1.1
