@@ -11,7 +11,7 @@ content-type: application/json
 
 {
     "id": "6",
-    "name": "666",
+    "name": "",
     "address": "address 1",
     "voting": 1,
     "neighbourhood": "neighbour 1",
@@ -19,4 +19,4 @@ content-type: application/json
 }
 ###
 # GET getCoffeeStoreById
-GET http://localhost:3000/api/getCoffeeStoreById?id= HTTP/1.1
+GET http://localhost:3000/api/getCoffeeStoreById?id=4b0c5685f964a520703b23e3 HTTP/1.1

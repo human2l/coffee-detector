@@ -5,11 +5,11 @@ const getCoffeeStoresByLocation = async (req, res) => {
     const { latLong, limit } = req.query;
     const response = await fetchCoffeeStores(latLong, 30);
     res.status(200);
-    res.json(response);
+    return res.json(response);
   } catch (error) {
     console.error("There is an error:", error);
     res.status(500);
-    res.json({ message: "Something went wrong", error });
+    return res.json({ message: "Something went wrong", error });
   }
 };
 
