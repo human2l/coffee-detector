@@ -53,30 +53,26 @@ const CoffeeStore = (initialProps) => {
         voting: 0,
       };
       const response = await axios.post("/api/createCoffeeStore", data);
-      console.log(response);
-      // const response = await fetch("/api/createCoffeeStore", {
-      //   method: "POST",
-      //   headers: {
-      //     "Content-Type": "application/json",
-      //   },
-      //   body: JSON.stringify(data),
-      // });
-      // console.log(response);
     } catch (error) {
       console.error("Error creating coffee store", error);
     }
   };
 
   useEffect(() => {
-    if (isEmpty(initialProps.coffeeStore)) {
-      if (coffeeStores.length > 0) {
-        const coffeeStoreFromContext = coffeeStores.find(
-          (coffeeStore) => coffeeStore.id.toString() === id
-        );
-        if (coffeeStoreFromContext) {
-          setCoffeeStore(coffeeStoreFromContext);
-          handleCreateCoffeeStore(coffeeStoreFromContext);
-        }
+    if (!isEmpty(initialProps.coffeeStore)) {
+      // SSG
+      handleCreateCoffeeStore(initialProps.coffeeStore);
+      return;
+    }
+
+    // CSR
+    if (coffeeStores.length > 0) {
+      const coffeeStoreFromContext = coffeeStores.find(
+        (coffeeStore) => coffeeStore.id.toString() === id
+      );
+      if (coffeeStoreFromContext) {
+        setCoffeeStore(coffeeStoreFromContext);
+        handleCreateCoffeeStore(coffeeStoreFromContext);
       }
     }
   }, [coffeeStores, id, initialProps.coffeeStore]);

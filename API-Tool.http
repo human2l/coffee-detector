@@ -9,8 +9,8 @@ POST http://localhost:3000/api/createCoffeeStore HTTP/1.1
 content-type: application/json
 
 {
-    "id": "5",
-    "name": "aaa",
+    "id": "6",
+    "name": "666",
     "address": "address 1",
     "voting": 1,
     "neighbourhood": "neighbour 1",

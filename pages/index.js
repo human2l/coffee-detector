@@ -1,3 +1,4 @@
+import axios from "axios";
 import Head from "next/head";
 import Image from "next/image";
 import Banner from "../components/banner";
@@ -17,7 +18,7 @@ export async function getStaticProps(context) {
       },
     };
   } catch (error) {
-    console.log(error);
+    console.error(error);
   }
 }
 
@@ -34,11 +35,11 @@ export default function Home(props) {
     const effectFn = async () => {
       if (latLong) {
         try {
-          const fetchedCoffeeStores = await fetch(
-            `/api/getCoffeeStoresByLocation?latLong=${latLong}&limit=30`
-          );
-          const coffeeStores = await fetchedCoffeeStores.json();
-          console.log(coffeeStores);
+          const coffeeStores = (
+            await axios.get(
+              `/api/getCoffeeStoresByLocation?latLong=${latLong}&limit=30`
+            )
+          ).data;
           dispatch({
             type: ACTION_TYPES.SET_COFFEE_STORES,
             payload: {
