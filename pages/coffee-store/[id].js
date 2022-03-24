@@ -53,7 +53,7 @@ const CoffeeStore = (initialProps) => {
         address: coffeeStore.address || "",
         voting: 0,
       };
-      const response = await axios.post("/api/createCoffeeStore", data);
+      await axios.post("/api/createCoffeeStore", data);
     } catch (error) {
       console.error("Error creating coffee store", error);
     }
@@ -83,11 +83,9 @@ const CoffeeStore = (initialProps) => {
   const [votingCount, setVotingCount] = useState(0);
 
   const fetcher = (url) => axios.get(url).then((res) => res.data);
-  // const fetcher = (url) => fetch(url).then((res) => res.json());
   const { data, error } = useSWR(`/api/getCoffeeStoreById?id=${id}`, fetcher);
   useEffect(() => {
     if (data && data.length > 0) {
-      console.log("data from SWR", data);
       setCoffeeStore(data[0]);
       setVotingCount(data[0].voting);
     }
@@ -95,9 +93,20 @@ const CoffeeStore = (initialProps) => {
   if (error)
     <div>Something went wrong retrieving coffee store page: {error}</div>;
 
-  const handleUpvoteButton = () => {
-    let count = votingCount + 1;
-    setVotingCount(count);
+  const handleUpvoteButton = async () => {
+    try {
+      const data = {
+        id,
+      };
+      const response = await axios.patch("/api/favouriteCoffeeStoreById", data);
+      const dbCoffeeStore = response.data;
+
+      if (dbCoffeeStore && dbCoffeeStore.length > 0) {
+        setVotingCount(votingCount + 1);
+      }
+    } catch (error) {
+      console.error("Error upvoting coffee store", error);
+    }
   };
 
   if (router.isFallback) {
@@ -161,7 +170,7 @@ const CoffeeStore = (initialProps) => {
             <p className={styles.text}>{votingCount}</p>
           </div>
           <button className={styles.upvoteButton} onClick={handleUpvoteButton}>
-            Like
+            Like!
           </button>
         </div>
       </div>
