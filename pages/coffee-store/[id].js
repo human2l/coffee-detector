@@ -9,6 +9,7 @@ import cls from "classnames";
 import fetchCoffeeStores from "../../lib/coffee-store";
 import { StoreContext } from "../../store/store-context";
 import { isEmpty } from "../../utils";
+import useSWR from "swr";
 
 export const getStaticProps = async (staticProps) => {
   const params = staticProps.params;
@@ -79,7 +80,21 @@ const CoffeeStore = (initialProps) => {
 
   const { address, name, neighbourhood, imgUrl } = coffeeStore;
 
-  const [votingCount, setVotingCount] = useState(1);
+  const [votingCount, setVotingCount] = useState(0);
+
+  const fetcher = (url) => axios.get(url).then((res) => res.data);
+  // const fetcher = (url) => fetch(url).then((res) => res.json());
+  const { data, error } = useSWR(`/api/getCoffeeStoreById?id=${id}`, fetcher);
+  useEffect(() => {
+    if (data && data.length > 0) {
+      console.log("data from SWR", data);
+      setCoffeeStore(data[0]);
+      setVotingCount(data[0].voting);
+    }
+  }, [data]);
+  if (error)
+    <div>Something went wrong retrieving coffee store page: {error}</div>;
+
   const handleUpvoteButton = () => {
     let count = votingCount + 1;
     setVotingCount(count);
