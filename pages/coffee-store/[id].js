@@ -1,3 +1,4 @@
+import axios from "axios";
 import { useState, useContext, useEffect } from "react";
 import { useRouter } from "next/router";
 import Link from "next/link";
@@ -92,14 +93,20 @@ const CoffeeStore = (initialProps) => {
   }, [data]);
 
   //Will show content placeholder during fetching
-  if (router.isFallback) {
-    return <div>Loading...</div>;
-  }
-
-  //Will show nothing but "Loading..." text
-  // if (router.isFallback || !data) {
+  // if (router.isFallback) {
   //   return <div>Loading...</div>;
   // }
+
+  //Will show nothing but "Loading..." text
+  if (router.isFallback || !data) {
+    return (
+      <div className={styles.layout}>
+        <div className={styles.nameWrapper}>
+          <p className={styles.name}>Loading...</p>
+        </div>
+      </div>
+    );
+  }
 
   const {
     address = "",
