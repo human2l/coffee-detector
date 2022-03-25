@@ -4,6 +4,11 @@ GET https://api.foursquare.com/v3/places/nearby?query=coffee&limit=6 HTTP/1.1
 Accept: application/json
 Authorization: {{foursquareAuthorizationHeader}}
 ###
+#
+GET https://api.foursquare.com/v3/places/search?query=coffee&near=sydney&limit=6 HTTP/1.1
+Accept: application/json
+Authorization: {{foursquareAuthorizationHeader}}
+###
 
 #POST createCoffeeStore
 POST http://localhost:3000/api/createCoffeeStore HTTP/1.1

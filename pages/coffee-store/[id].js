@@ -1,4 +1,3 @@
-import axios from "axios";
 import { useState, useContext, useEffect } from "react";
 import { useRouter } from "next/router";
 import Link from "next/link";
@@ -8,7 +7,7 @@ import Image from "next/image";
 import cls from "classnames";
 import fetchCoffeeStores from "../../lib/coffee-store";
 import { StoreContext } from "../../store/store-context";
-import { isEmpty } from "../../utils";
+import { isNotEmpty, imgPlaceholderUrl, swrFetcher } from "../../utils";
 import useSWR from "swr";
 
 export const getStaticProps = async (staticProps) => {
@@ -40,6 +39,7 @@ export const getStaticPaths = async () => {
 const CoffeeStore = (initialProps) => {
   const router = useRouter();
   const [coffeeStore, setCoffeeStore] = useState(initialProps.coffeeStore);
+  const [votingCount, setVotingCount] = useState(0);
   const id = router.query.id;
   const {
     state: { coffeeStores },
@@ -60,7 +60,9 @@ const CoffeeStore = (initialProps) => {
   };
 
   useEffect(() => {
-    if (!isEmpty(initialProps.coffeeStore)) {
+    if (isNotEmpty(initialProps.coffeeStore)) {
+      console.log("not empty");
+      console.log(initialProps.coffeeStore);
       // SSG
       handleCreateCoffeeStore(initialProps.coffeeStore);
       return;
@@ -76,22 +78,35 @@ const CoffeeStore = (initialProps) => {
         handleCreateCoffeeStore(coffeeStoreFromContext);
       }
     }
-  }, [coffeeStores, id, initialProps.coffeeStore]);
+  }, [coffeeStores, id, initialProps, initialProps.coffeeStore]);
 
-  const { address, name, neighbourhood, imgUrl } = coffeeStore;
-
-  const [votingCount, setVotingCount] = useState(0);
-
-  const fetcher = (url) => axios.get(url).then((res) => res.data);
-  const { data, error } = useSWR(`/api/getCoffeeStoreById?id=${id}`, fetcher);
+  const { data, error } = useSWR(
+    `/api/getCoffeeStoreById?id=${id}`,
+    swrFetcher
+  );
   useEffect(() => {
     if (data && data.length > 0) {
       setCoffeeStore(data[0]);
       setVotingCount(data[0].voting);
     }
   }, [data]);
-  if (error)
-    <div>Something went wrong retrieving coffee store page: {error}</div>;
+
+  //Will show content placeholder during fetching
+  if (router.isFallback) {
+    return <div>Loading...</div>;
+  }
+
+  //Will show nothing but "Loading..." text
+  // if (router.isFallback || !data) {
+  //   return <div>Loading...</div>;
+  // }
+
+  const {
+    address = "",
+    name = "",
+    neighbourhood = "",
+    imgUrl = "",
+  } = coffeeStore || {};
 
   const handleUpvoteButton = async () => {
     try {
@@ -109,10 +124,8 @@ const CoffeeStore = (initialProps) => {
     }
   };
 
-  if (router.isFallback) {
-    return <h1>Loading...</h1>;
-  }
-
+  if (error)
+    <div>Something went wrong retrieving coffee store page: {error}</div>;
   return (
     <div className={styles.layout}>
       <Head>
@@ -130,10 +143,7 @@ const CoffeeStore = (initialProps) => {
           </div>
           <Image
             className={styles.storeImg}
-            src={
-              imgUrl ||
-              "https://images.unsplash.com/photo-1504753793650-d4a2b783c15e?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=2000&q=80"
-            }
+            src={imgUrl || imgPlaceholderUrl}
             width="600"
             height="360"
             alt={name}
