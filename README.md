@@ -20,7 +20,15 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 
 # Demo
 
-To see the Demo of this app, click: https://coffee-detector-human2l.vercel.app/
+To see the Demo of this app, click: 
+
+Deployed on Vercel:
+https://coffee-detector-human2l.vercel.app/
+
+Deployed on Netlify:
+https://coffee-detector.netlify.app/
+
+Both are using the same database. So the data is mutual.
 
 # Getting Started
 
