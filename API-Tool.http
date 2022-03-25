@@ -18,6 +18,11 @@ content-type: application/json
     "imgUrl": "imgUrl 1"
 }
 ###
+
+#GET getCoffeeStoreByLocation
+GET http://localhost:3000/api/getCoffeeStoresByLocation?latLong=-33.856357,151.215406&limit=30
+
+###
 # GET getCoffeeStoreById
 GET http://localhost:3000/api/getCoffeeStoreById?id=4b0c5685f964a520703b23e3 HTTP/1.1
 ###

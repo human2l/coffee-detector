@@ -30,16 +30,14 @@ export default function Home(props) {
   const { dispatch, state } = useContext(StoreContext);
 
   const { coffeeStores, latLong } = state;
-
   useEffect(() => {
     const effectFn = async () => {
       if (latLong) {
         try {
-          const coffeeStores = (
-            await axios.get(
-              `/api/getCoffeeStoresByLocation?latLong=${latLong}&limit=30`
-            )
-          ).data;
+          const response = await axios.get(
+            `/api/getCoffeeStoresByLocation?latLong=${latLong}&limit=30`
+          );
+          const coffeeStores = response.data;
           dispatch({
             type: ACTION_TYPES.SET_COFFEE_STORES,
             payload: {
@@ -68,8 +66,8 @@ export default function Home(props) {
           buttonText={isFindingLocation ? "Locating..." : "Show me"}
           handleOnClick={handleTrackLocation}
         />
-        {locationErrorMsg && <p>Something went wrong: ${locationErrorMsg}</p>}
-        {coffeeStoresError && <p>Something went wrong: ${coffeeStoresError}</p>}
+        {locationErrorMsg && <p>Something went wrong: {locationErrorMsg}</p>}
+        {coffeeStoresError && <p>Something went wrong: {coffeeStoresError}</p>}
         <div className={styles.heroImage}>
           <Image
             src="/static/hero-image.png"
@@ -78,7 +76,7 @@ export default function Home(props) {
             alt="hero-image"
           />
         </div>
-        {coffeeStores.length > 0 && (
+        {coffeeStores && coffeeStores.length > 0 && (
           <div className={styles.sectionWrapper}>
             <h2 className={styles.heading2}>Stores near me</h2>
             <div className={styles.cardLayout}>
