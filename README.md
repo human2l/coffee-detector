@@ -1,5 +1,17 @@
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
+# Demo
+
+To see the Demo of this app, click: 
+
+Deployed on Vercel:
+https://coffee-detector-human2l.vercel.app/
+
+Deployed on Netlify:
+https://coffee-detector.netlify.app/
+
+Both are using the same database. So the data is mutual.
+
 # Project Architecture
 
 ## Home page
@@ -18,17 +30,6 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 
 <img src="README.assets/Screen Shot 2022-03-22 at 11.48.00 AM.png" alt="Screen Shot 2022-03-22 at 11.48.00 AM" style="zoom:50%;" />
 
-# Demo
-
-To see the Demo of this app, click: 
-
-Deployed on Vercel:
-https://coffee-detector-human2l.vercel.app/
-
-Deployed on Netlify:
-https://coffee-detector.netlify.app/
-
-Both are using the same database. So the data is mutual.
 
 # Getting Started
 
